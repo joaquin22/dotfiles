@@ -1,0 +1,14 @@
+{
+  "custom/orbit": {
+      "exec": "orbit waybar-status",
+      "return-type": "json",
+      "interval": 10,
+      "on-click": "orbit toggle top-right",
+      "format": "󱗿"
+    },
+  "custom/power": {
+    "format": "⏻",
+    "tooltip": false,
+    "on-click": "wlogout"
+  }
+}

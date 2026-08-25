@@ -1,0 +1,182 @@
+@import 'colors.css';
+
+* {
+    font-family: "JetBrains Mono Nerd Font";
+    font-size: 13px;
+    border: none;
+    min-height: 0; 
+}
+
+
+window#waybar {
+    background-color: transparent;
+    transition: background-color 0.5s ease;
+}
+
+/* Module Center Style */
+.modules-center{
+  border: 1px  #000;
+  border-radius: 15px;
+}
+
+/* Left modules */
+#workspaces {
+    padding: 0px 5px;
+    margin: 2px 10px;
+}
+
+#workspaces button {
+    padding: 0 12px;
+    margin: 0 1px;
+    color: white;
+    background: @bg2;
+    transition: all 250ms ease;
+    border: 1px solid @bd1; 
+}
+
+
+#workspaces button:hover {
+    background: linear-gradient(135deg, rgba(166, 227, 161, 0.2), rgba(148, 226, 213, 0.2));
+    border-color: rgba(166, 227, 161, 0.4);
+}
+
+#workspaces button.active {
+    background-color:alpha(#ffffff, 0.8);
+    color:#121212;
+    margin: 0 2px;
+    min-width: 32px;
+    font-weight: bold;
+}
+
+#workspaces button:first-child {
+  border-radius: 50px 4px 4px 50px;
+}
+
+#workspaces button:last-child {
+  border-radius: 4px 50px 50px 4px;
+}
+
+#clock {
+    background: @bg2; 
+    border-radius: 20px;
+    padding: 5px 15px;
+    margin: 2px 1px;
+    color: #cdd6f4;
+    border: 1px solid @bd1;
+    transition: all 0.3s ease;
+}
+
+#clock:hover {
+    background: linear-gradient(135deg, rgba(166, 227, 161, 0.2), rgba(148, 226, 213, 0.2));
+    border-color: rgba(166, 227, 161, 0.4);
+}
+
+/* Right modules */
+#tray,
+#backlight,
+#idle_inhibitor,
+#pulseaudio,
+#network,
+#bluetooth,
+#battery,
+#custom-orbit,
+#custom-power {
+    background: rgba(49, 50, 68, 0.8);
+    border-radius: 16px;
+    padding: 0 5px;
+    margin: 0.5px 0.5px;
+    color: #cdd6f4;
+    border: 1px solid rgba(205, 214, 244, 0.05);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#tray {
+    font-weight: 800;
+    background:alpha(#121212, 0.4);
+    border-radius: 99px;
+    padding: 0 5px;
+    margin: 0.5px 0.5px;
+    padding: 8px 8px;
+}
+
+
+/* Module hover effects */
+#backlight:hover,
+#pulseaudio:hover,
+#network:hover,
+#bluetooth:hover,
+#custom-orbit:hover,
+#battery:hover {
+    background: linear-gradient(135deg, rgba(166, 227, 161, 0.2), rgba(148, 226, 213, 0.2));
+    border-color: rgba(166, 227, 161, 0.4);
+}
+
+
+#pulseaudio {
+    color: #a6e3a1;
+}
+
+#pulseaudio.muted {
+    color: #f38ba8;
+    background: rgba(243, 139, 168, 0.1);
+}
+
+#bluetooth {
+    color: #89b4fa;
+}
+
+#bluetooth.disabled,
+#bluetooth.off {
+    color: rgba(205, 214, 244, 0.4);
+}
+
+#battery {
+    color: #a6e3a1;
+}
+
+#battery.charging,
+#battery.plugged {
+    color: #f9e2af;
+    background: rgba(249, 226, 175, 0.1);
+}
+
+#battery.critical:not(.charging) {
+    background: rgba(243, 139, 168, 0.15);
+    color: #f38ba8;
+    animation: blink 0.5s linear infinite alternate;
+}
+
+#battery.warning:not(.charging) {
+    color: #f9e2af;
+    background: rgba(249, 226, 175, 0.1);
+}
+
+@keyframes blink {
+    to {
+        background-color: rgba(243, 139, 168, 0.3);
+        color: #ffffff;
+    }
+}
+
+#custom-power {
+    color: #f38ba8;
+    font-size: 16px;
+    background: linear-gradient(135deg, rgba(243, 139, 168, 0.2), rgba(235, 160, 172, 0.2));
+    border-color: rgba(243, 139, 168, 0.3);
+}
+
+#custom-power:hover {
+    background: linear-gradient(135deg, rgba(243, 139, 168, 0.3), rgba(235, 160, 172, 0.3));
+    border-color: rgba(243, 139, 168, 0.5);
+}
+
+
+/* Tooltip styling */
+tooltip {
+    background: rgba(4, 4, 4, 0.8);
+    border: 1px solid rgba(100, 114, 125, 0.5);
+}
+
+tooltip label {
+    color: #cdd6f4;
+}

@@ -1,0 +1,24 @@
+{
+    "include": [
+      "$HOME/.config/waybar/Modules",
+      "$HOME/.config/waybar/ModulesCustom",
+    ],
+    "layer": "top",
+    "position": "top",
+    "margin-top": 10,
+    "margin-left":4,
+    "margin-right": 4,
+    "modules-center": [
+        "hyprland/workspaces"
+    ],
+    "modules-right": [
+        "tray",
+        "backlight",
+        "pulseaudio",
+        "battery",
+        "clock",
+        "custom/orbit",
+        "custom/power"
+    ],
+      
+}
