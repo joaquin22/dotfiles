@@ -1,0 +1,13 @@
+#!/bin/bash
+
+wifi_info=$(nmcli -t -f active,ssid,signal dev wifi | grep '^sí')
+if [[ -z "$wifi_info" ]]; then
+    echo '{"icon": "󰖪 ", "ssid": "Disconnected", "strength": 0}'
+    exit 0
+fi
+
+ssid=$(echo "$wifi_info" | cut -d: -f2)
+signal=$(echo "$wifi_info" | cut -d: -f3)
+icon="\\uf1eb"
+
+echo "{\"icon\": \"$icon\", \"ssid\": \"${ssid^^}\", \"strength\": $signal}"

@@ -1,0 +1,126 @@
+.panel {
+    background-color: $widgets-bg;
+    border-radius: 16px;
+    border: 1px solid $border;
+    padding: 20px 24px;
+    min-width: 600px;
+}
+
+.header {
+
+    .title {
+        font-size: 16px;
+        font-weight: 600;
+    }
+
+    .count-pill {
+        background-color: $row;
+        border-radius: 999px;
+        padding: 2px 10px;
+        margin-left: 10px;
+
+        label {
+            color: $accent;
+            font-size: 12px;
+        }
+    }
+
+    .close-btn {
+        background-color: $row;
+        border-radius: 999px;
+        min-width: 28px;
+        min-height: 28px;
+
+        label {
+            font-size: 12px;
+            color: $text-muted;
+        }
+    }
+}
+
+.divider {
+    background-color: $border;
+    min-height: 1px;
+    margin: 14px 0;
+}
+
+.col-headers {
+    margin-bottom: 8px;
+
+    .col-label {
+        font-size: 15px;
+        color: rgb(245, 162, 96);
+        min-width: 110px;
+    }
+}
+
+.col-spacer {
+    min-width: 24px;
+}
+
+.row {
+    background-color: $row;
+    border-radius: 10px;
+    padding: 12px 14px;
+    margin-bottom: 6px;
+
+    .pkg-name {
+        font-size: 15px;
+        font-weight: 500;
+    }
+
+    .ver-old {
+        font-size: 14px;
+        color: $text-muted;
+        min-width: 90px;
+    }
+
+    .arrow {
+        font-size: 12px;
+        color: $text-muted;
+        margin: 0 6px;
+    }
+
+    .ver-new {
+        font-size: 14px;
+        color: $accent;
+        min-width: 90px;
+        font-weight: 500;
+    }
+}
+
+.footer {
+    .config-btn {
+        background-color: transparent;
+
+        label {
+            font-size: 13px;
+            color: $text-muted;
+        }
+    }
+
+    .update-all-btn {
+        background-color: $accent;
+        border-radius: 10px;
+        padding: 8px 16px;
+
+        label {
+            color: #0d1117;
+            font-weight: 600;
+            font-size: 13px;
+        }
+    }
+}
+
+.loading-state {
+    .spinner-big {
+        font-size: 32px;
+        color: $accent;
+        margin-bottom: 10px;
+    }
+
+    .loading-text {
+        font-size: 13px;
+        color: $text-muted;
+    }
+}

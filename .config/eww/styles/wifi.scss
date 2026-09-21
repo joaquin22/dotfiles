@@ -1,0 +1,108 @@
+.wifi {
+    color: $purple;
+    border-radius: 20px;
+    margin: 3px 0px;
+}
+
+.wifictl-container {
+    box-shadow: 0 2px 3px 2px #06060b;
+    margin: 5.5px;
+    border-radius: 16px;
+    min-width: 385px;
+    background-color: $widgets-bg;
+    border: 1px solid $border;
+    padding: 20px 24px;
+
+    .wifi-header {
+        label {
+            font-size: 25px;
+        }
+
+        margin-left: 15px;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
+
+    .wifi-stats {
+        color: $text-muted;
+        margin-left: 15px;
+
+        label {
+            font-size: 15px;
+        }
+    }
+
+    .network-container {
+        min-height: 15rem;
+        margin: 7px;
+        margin-top: 17px;
+        border-radius: 15px;
+    }
+
+    .swifi-header {
+        font-size: 15px;
+        margin-left: 15px;
+        margin-top: 10px;
+        margin-bottom: 7px;
+        color: $text-muted;
+    }
+
+    .wifi-bcon {
+        margin: 10px;
+    }
+
+    .iwifi {
+        margin-top: 2px;
+        margin-left: 10px;
+    }
+
+    .wifi-ssid-01 {
+        color: $text-muted;
+    }
+
+    .wifi-ssid-02 {
+        color: $blue;
+    }
+
+    .wifi-ssid-03 {
+        color: $green;
+    }
+
+    .nocon {
+        color: $red;
+    }
+
+    .yescon {
+        color: $green;
+    }
+
+
+    .wifi-buttons {
+        color: $text-muted;
+        border-radius: 10px;
+        background-color: rgba(0, 0, 0, 0.52);
+    }
+}
+
+
+.wifi-option-box {
+    margin: 5px 5px;
+    border-radius: 15px;
+    padding: 10px;
+    background-color: $row;
+    box-shadow: 0 2px 3px 2px rgba(6, 6, 11, 0.9);
+}
+
+.wifi-ssid {
+    margin: 2px 15px;
+
+    label {
+        font-size: 16px;
+    }
+}
+
+.divider {
+    background-color: $border;
+    min-height: 1px;
+    margin: 14px 0;
+}

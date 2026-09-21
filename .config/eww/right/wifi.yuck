@@ -1,0 +1,160 @@
+(defvar wifirev false)
+(defvar wifihov false)
+(defvar wifictlrev false)
+
+(defvar wificonfigrev false)
+(defvar wifissidrev "")
+(defvar wificlass "")
+
+(defpoll wifistatus :interval "1s" :initial "{\"icon\": \"睊\", \"ssid\": \"Disconnected\", \"strength\": 0}"
+  "./scripts/current-wifi.sh"
+)
+
+(defpoll wifi_networks
+  :interval "3s"
+  :initial "[]"
+  "./scripts/getnet.sh"
+)
+
+(defwidget wifi []
+  (box :class "wifi"
+    (eventbox :cursor "pointer"
+      :onclick "./scripts/wifictl.sh"
+      (box :orientation "h"
+        :space-evenly false
+        (label :text "${wifistatus.icon}" :class "icon")
+        (label :class "space-wifi" :text "\\u00A0")
+        (box :class "wifi-type" :space-evenly false
+          (label :limit-width 12 :text "${wifistatus.ssid}")
+        )
+      )
+    )
+  )
+)
+
+(defwindow wifictl
+  :monitor 0
+  :stacking "overlay"
+  :focusable "true"
+  :geometry (geometry :anchor "top right"
+    :x "5px"
+    :y "-14px"
+    :width "425px"
+    :height "40.7%"
+  )
+  (expander :expanded true
+    (revealer :transition "slidedown"
+      :reveal wifictlrev
+      :duration "350ms"
+      (wifi_event)
+    )
+  )
+)
+
+(defwidget wifi_event []
+  (eventbox :class "shadow-container"
+    :onhoverlost "./scripts/wifictl.sh"
+    (box :orientation "v"
+      :space-evenly false
+      (box :class "wifictl-container"
+        :space-evenly false
+        :orientation "v"
+        (box :class "wifi-header"
+          (label :text "NETWORK MANAGER")
+        )
+        (box :class "wifi-stats"
+          :space-evenly false
+          (label :text "STATUS : ")
+          (label :class "${wifistatus.ssid=="Disconnected"?"nocon":"yescon"}"
+            :limit-width 27
+          :text  "${wifistatus.ssid=="Disconnected"?" Disconnected":" Connected to ${wifistatus.ssid}"}")
+        )
+        
+        (box :class "divider" :orientation "h")
+        
+        (scroll :vscroll true
+          :class "network-container"
+          (box :orientation "v" :space-evenly false
+            (for network in wifi_networks
+              (wifi-option :ssid "${network.ssid}" :inuse "${network.in_use}" :auto {network.autoconnect})
+            )
+          )
+        )
+      )
+      
+      (revealer :reveal {wificonfigrev}
+        :transition "slidedown"
+        :duration "350ms"
+        (eventbox :onhoverlost "/usr/bin/eww update wificonfigrev=false"
+          (box :class "wifictl-container"
+            :space-evenly false
+            :orientation "v"
+            (box :class "swifi-header"
+              :space-evenly false
+              (label :text "${wifissidrev}")
+            )
+            (box :class "wifi-bcon"
+              :orientation "h"
+              :visible {wificlass=="1"?true:false}
+              (box :class "wifi-buttons"
+                (input :password true
+                  :class "iwifi"
+                  :height 30
+                  :onaccept "/usr/bin/eww update wificonfigrev=false && nmcli device wifi connect \"${wifissidrev}\" password \"{}\""
+                ))
+            )
+            (box :orientation "h"
+              :spacing 10
+              :visible {wificlass=="2"?true:false}
+              :class "wifi-bcon"
+              (eventbox :cursor "pointer"
+                :height 30
+                :class "wifi-buttons"
+                :onclick "/usr/bin/eww update wificonfigrev=false && nmcli device wifi connect \"${wifissidrev}\""
+                (label :text "Connect")
+              )
+              (eventbox :cursor "pointer"
+                :class "wifi-buttons"
+                :onclick "/usr/bin/eww update wificonfigrev=false && nmcli connection delete \"${wifissidrev}\""
+                (label :text "Remove")
+              )
+            )
+            (box :orientation "h"
+              :spacing 10
+              :visible {wificlass=="3"?true:false}
+              :class "wifi-bcon"
+              (eventbox :cursor "pointer"
+                :class "wifi-buttons"
+                :onclick "/usr/bin/eww update wificonfigrev=false && ./scripts/wifi-disconnect.sh"
+                :height 30
+                (label :text "Disconnect")
+              )
+              (eventbox :cursor "pointer"
+                :class "wifi-buttons"
+                :onclick "/usr/bin/eww update wificonfigrev=false && nmcli connection delete \"${wifissidrev}\""
+                (label :text "Remove")
+              )
+            )
+          )
+        )
+      )
+    )
+  )
+)
+
+(defwidget wifi-option [ssid auto inuse]
+  (eventbox :cursor "pointer"
+    :onclick "/usr/bin/eww update wificonfigrev=false && /usr/bin/eww update wificonfigrev=true && /usr/bin/eww update wificlass=${auto==false?"1":inuse==false?"2":"3"} && /usr/bin/eww update wifissidrev=\"${ssid}\""
+    (box :class "wifi-option-box"
+      :orientation "v"
+      (box :class "wifi-ssid"
+        :space-evenly false
+        :orientation "h"
+        (label :class "${auto==false?"wifi-ssid-01":inuse==false?"wifi-ssid-02":"wifi-ssid-03"}"
+          :limit-width 30
+          :text "${ssid}"
+        )
+      )
+    )
+  )
+)

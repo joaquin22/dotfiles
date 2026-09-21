@@ -1,0 +1,78 @@
+(defvar updates_count 0)
+(defvar updates_body "")
+(defvar updating false)
+(defvar spinner_frame "⠋")
+
+(defwidget updates-btn []
+  (eventbox :cursor "pointer"
+    :onclick "eww open update-panel; ~/.config/eww/scripts/get-updates.sh &"
+    (box :orientation "h" :space-evenly false
+      (label :class "updates-icon" :text "󰏗 ")
+      (label :class "updates-count" :text "${updates_count}")
+    )
+  )
+)
+
+(defwindow update-panel
+  :monitor 0
+  :geometry (geometry :x "10px" :y "5px" :width "620px" :height "0px"
+  :anchor "top left")
+  :stacking "overlay"
+  :windowtype "dialog"
+  (update-panel-widget)
+)
+
+(defwidget update-panel-widget []
+  (box :class "panel" :orientation "v" :space-evenly false
+    
+    (box :class "header" :orientation "h" :space-evenly false
+      (label :class "title" :text "Actualizaciones disponibles")
+      (box :class "count-pill" :halign "start" :visible {!updating}
+        (label :text "${updates_count}")
+      )
+      
+      (box :hexpand true)
+      (eventbox :cursor "pointer"
+        (button :class "close-btn" :onclick "eww close update-panel"
+          (label :text "✕")
+        )
+      )
+    )
+    
+    (box :class "divider" :orientation "h")
+    
+    ;; Encabezados de columna (ocultos mientras carga)
+    (box :class "col-headers" :orientation "h" :space-evenly false :visible {!updating}
+      (box :class "col-spacer-tag")
+      (label :class "col-label" :halign "start" :hexpand true :text "Paquete")
+      (label :class "col-label" :text "Versión actual")
+      (box :class "col-spacer")
+      (label :class "col-label" :text "Nueva versión")
+    )
+    
+    ;; Estado de carga
+    (box :class "loading-state" :orientation "v" :space-evenly false
+      :halign "center" :valign "center" :height 260 :visible updating
+      (label :class "spinner-big" :text spinner_frame)
+      (label :class "loading-text" :text "Buscando actualizaciones...")
+    )
+    
+    ;; Lista real (oculta mientras carga)
+    (scroll :vscroll true :height 260 :visible {!updating}
+      (literal :content updates_body)
+    )
+    
+    (box :class "divider" :orientation "h")
+    
+    (box :class "footer" :orientation "h" :space-evenly false
+      
+      (box :hexpand true)
+      (eventbox :cursor "pointer"
+        (button :class "update-all-btn"
+          :onclick "~/.config/eww/scripts/update-all.sh &"
+          (label :text "Actualizar todo")
+        )
+      )
+    )
+  )
+)

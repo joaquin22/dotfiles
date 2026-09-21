@@ -1,0 +1,52 @@
+(include "left/workspaces.yuck")
+(include "left/updates.yuck")
+(include "calendar.yuck")
+(include "battery.yuck")
+(include "right/wifi.yuck")
+(include "right/volume.yuck")
+
+(defwidget bar []
+  (box :class "bar"
+    :orientation "h"
+    (box :class "bar-left"
+      :halign "start"
+      :valign "center"
+      :spacing 8
+      :hexpand true
+      :space-evenly false
+      (box :class "bar-pill"
+        (updates-btn)
+      )
+      (box :class "bar-pill"
+        (workspaces)
+      )
+    )
+    
+    
+    (box :halign "center"
+      :valign "center"
+      :spacing 10
+      :hexpand true
+      :orientation "h"
+      (time :time get_time)
+    )
+    
+    (box :class "bar-right"
+      :halign "end"
+      :valign "center"
+      :spacing 8
+      :hexpand true
+      :space-evenly false
+      (box :class "bar-pill"
+        (wifi)
+      )
+      (box :class "bar-pill"
+        (volume)
+      )
+      (box :class "bar-pill"
+        (battery)
+      )
+    )
+  )
+)
+

@@ -1,0 +1,18 @@
+(deflisten batico "./scripts/batico.sh")
+(defpoll batcap :interval "5s" :initial "0"
+  "cat /sys/class/power_supply/BAT*/capacity 2>/dev/null | head -1 | grep . || echo 0"
+)
+
+
+(defwidget battery []
+  (box :class "battery"
+    (box :orientation "h"
+      :space-evenly false
+      (box :class "batico-short"
+        (literal :content batico)
+      )
+      (label :class "bsht"
+      :text "${batcap}%")
+    )
+  )
+)

@@ -1,0 +1,19 @@
+(deflisten bar_state :initial "{\"workspaces\":[],\"special_visible\":false}"
+"~/.config/eww/scripts/workspaces.sh")
+
+(defwidget workspaces []
+  (box :class "workspaces" :orientation "h" :space-evenly false
+    (for ws in {bar_state.workspaces}
+      (button :class {ws.active ? "ws-active" : ws.occupied ? "ws-occupied" : "ws-empty"}
+        :onclick "hyprctl dispatch 'hl.dsp.focus({workspace=\"${ws.id}\"})'"
+        {ws.id}
+      )
+    )
+    (special-toggle)
+  )
+)
+
+(defwidget special-toggle []
+  (button :class {bar_state.special_visible ? "special-active" : "special"}
+  :onclick "hyprctl dispatch togglespecialworkspace magic")
+)

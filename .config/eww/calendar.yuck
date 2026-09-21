@@ -1,0 +1,57 @@
+(defpoll get_date :interval "1s"
+  "date +'%d.%m.%Y, %A'"
+)
+
+(defpoll get_time :interval "1s"
+  "date +%H:%M:%S"
+)
+
+(defvar calrev false)
+
+(defwidget time [time]
+  (eventbox :cursor "pointer"
+    :onclick "./scripts/calendar.sh"
+    :width 120
+    :height 25
+    :class "time-label"
+    (label :text "${time}")
+  )
+)
+
+(defwindow calendar
+  :monitor 0
+  :stacking "overlay"
+  :geometry (geometry :anchor "top center"
+    :y "-15px"
+    :width "355px"
+    :height "41%"
+  )
+  (expander :expanded true
+    (revealer :transition "slidedown"
+      :reveal calrev
+      :duration "350ms"
+      (calendar_event)
+    )
+  )
+)
+
+(defwidget calendar_event []
+  (eventbox :onhoverlost "./scripts/calendar.sh"
+    (calendar_widget :time get_time
+      :date get_date
+    )
+  )
+)
+
+(defwidget calendar_widget[time date]
+  (box :class "calendar-container"
+    :orientation "v"
+    :spacing 16
+    :space-evenly false
+    
+    (box :class "calendar-box"
+      :halign "center"
+      (calendar :class "cal")
+    )
+  )
+)

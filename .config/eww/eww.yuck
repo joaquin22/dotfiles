@@ -1,0 +1,13 @@
+(include "bar.yuck")
+
+
+(defwindow bar_widget
+  :monitor 0
+  :stacking "bg"
+  :geometry (geometry :anchor "top center"
+    :width "99.5%"
+    :height "1.425%"
+  )
+  :exclusive true
+  (bar)
+)
